@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:polling/providers/bottom_nav_provider.dart';
+import 'package:polling/screens/BottomNavPages/Account/accounts_page.dart';
+import 'package:polling/screens/BottomNavPages/Home/home_page.dart';
+import 'package:polling/screens/BottomNavPages/MyPolls/my_polls.dart';
+import 'package:provider/provider.dart';
 
 class MainActivityPage extends StatefulWidget {
   const MainActivityPage({super.key});
@@ -8,11 +13,33 @@ class MainActivityPage extends StatefulWidget {
 }
 
 class _MainActivityPageState extends State<MainActivityPage> {
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return Consumer<BottomNavProvider>(
+        builder: (context, nav,child) {
+        return Scaffold(
+          body: _pages[nav.currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            items:_items,
+            currentIndex: nav.currentIndex,
+            onTap: (value) {
+              nav.changeIndex = value;
+            },
+          ),
+        );
+      }
     );
   }
+  List<Widget> _pages =[
+    HomePage(),
+    MyPolls(),
+    AccountPage(),
+  ];
+  List<BottomNavigationBarItem> _items = const [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    BottomNavigationBarItem(icon: Icon(Icons.poll), label: "My Polls"),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: "Accounts"),
+  ];
 }
 

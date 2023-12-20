@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:polling/firebase_options.dart';
 import 'package:polling/providers/authentication_provider.dart';
+import 'package:polling/providers/bottom_nav_provider.dart';
 import 'package:polling/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
      providers: [
-       ChangeNotifierProvider(create: (context)=>AuthProvider())
+       ChangeNotifierProvider(create: (context)=>AuthProvider()),
+       ChangeNotifierProvider(create: (context)=>BottomNavProvider())
      ],
       child: MaterialApp(
         home: SplashScreen(),
